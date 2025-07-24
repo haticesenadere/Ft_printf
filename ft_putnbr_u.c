@@ -12,13 +12,14 @@
 
 #include "ft_printf.h"
 
-void	ft_putnbr_u(unsigned int n, int *len)
+int	ft_putnbr_u(unsigned int n)
 {
-	if (n < 10)
-		ft_putchar(n + '0', len);
-	else
-	{
-		ft_putnbr_u(n / 10, len);
-		ft_putnbr_u(n % 10, len);
-	}
+	int count;
+
+	count = 0;
+	if (n > 9)
+		count += ft_putnbr_u(n / 10);
+	count += ft_putchar((n % 10) + '0');
+	
+	return(count);
 }

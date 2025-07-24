@@ -12,21 +12,26 @@
 
 #include "ft_printf.h"
 
-void	ft_putnbr(int n, int *len)
+int ft_putnbr(int n)
 {
-	unsigned int	nb;
+	int count;
 
-	nb = n;
-	// if (n < 0)
-	// {
-	// 	ft_putchar('-', len);
-	// 	nb *= -1;
-	// }
-	if (nb < 10)
-		ft_putchar(nb + '0', len);
-	else
+	count = 0;
+	if (n == -2147483648)
 	{
-		ft_putnbr(nb / 10, len);
-		ft_putnbr(nb % 10, len);
+		count += ft_putchar('-');
+		count += ft_putchar('2');
+		count += ft_putnbr(147483648);
+		return (count);
 	}
+	else if (n < 0)
+	{
+		count += ft_putchar('-');
+		n = -n;
+	}
+	if (n >= 10)
+		count += ft_putnbr(n / 10);
+	count += ft_putchar((n % 10) + '0');
+
+	return (count);
 }

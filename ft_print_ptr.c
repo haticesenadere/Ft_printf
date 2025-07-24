@@ -12,23 +12,15 @@
 
 #include "ft_printf.h"
 
-static void	ft_putptr(unsigned long n, int *len)
+int	ft_print_ptr(unsigned long ptr)
 {
-	char	*hex;
-
-	hex = "0123456789abcdef";
-	if (n >= 16)
-		ft_putptr(n / 16, len);
-	ft_putchar(hex[n % 16], len);
-}
-
-void	ft_print_ptr(void *ptr, int *len)
-{
+	int count;  
+	count = 0;
 	if (!ptr)
 	{
-		ft_putstr("(nil)", len);
-		return ;
+		return ft_putstr("(nil)");	
 	}
-	ft_putstr("0x", len);
-	ft_putptr((unsigned long)ptr, len);
+	count += ft_putstr("0x");
+	count += ft_putnbr_base(ptr, 'x');
+	return (count);
 }

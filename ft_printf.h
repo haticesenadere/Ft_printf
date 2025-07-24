@@ -17,11 +17,11 @@
 # include <unistd.h>
 
 int		ft_printf(const char *format, ...);
-void	ft_putnbr(int n, int *len);
-void	ft_putnbr_u(unsigned int n, int *len);
-void	ft_putchar(char c, int *len);
-void	ft_putstr(char *s, int *len);
-void	ft_putnbr_base(unsigned int nbr, char Xx, int *len);
-void	ft_print_ptr(void *ptr, int *len);
+int     ft_putnbr(int n);
+int 	ft_putnbr_u(unsigned int n);
+int 	ft_putchar(int c);
+int 	ft_putstr(char *s);
+int 	ft_putnbr_base(unsigned long nbr, char Xx);
+int 	ft_print_ptr(unsigned long ptr);
 
 #endif

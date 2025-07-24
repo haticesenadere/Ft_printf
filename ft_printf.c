@@ -12,44 +12,49 @@
 
 #include "ft_printf.h"
 
-static void	check_flags(va_list args, const char format, int *len)
+static int check_flags(va_list args, const char format)
 {
 	if (format == 'd' || format == 'i')
-		ft_putnbr(va_arg(args, int), len);
+		return (ft_putnbr(va_arg(args, int)));
 	else if (format == 'u')
-		ft_putnbr_u(va_arg(args, unsigned int), len);
+		return (ft_putnbr_u(va_arg(args, unsigned int)));
 	else if (format == 'c')
-		ft_putchar(va_arg(args, int), len);
+		return (ft_putchar(va_arg(args, int)));
 	else if (format == 's')
-		ft_putstr(va_arg(args, char *), len);
+		return (ft_putstr(va_arg(args, char *)));
 	else if (format == '%')
-		ft_putchar(format, len);
+		return (ft_putchar(format));
 	else if (format == 'x')
-		ft_putnbr_base(va_arg(args, unsigned int), format, len);
+		return (ft_putnbr_base(va_arg(args, unsigned int), format));
 	else if (format == 'X')
-		ft_putnbr_base(va_arg(args, unsigned int), format, len);
+		return (ft_putnbr_base(va_arg(args, unsigned int), format));
 	else if (format == 'p')
-		ft_print_ptr(va_arg(args, void *), len);
+		return (ft_print_ptr(va_arg(args, unsigned long)));
+
+	return (0);
 }
 
-int	ft_printf(const char *format, ...)
+int ft_printf(const char *format, ...)
 {
-	va_list	args;
-	int		len;
+	va_list args;
+	int count;
+	int i;
 
-	len = 0;
+	count = 0;
+	i = 0;
 	va_start(args, format);
-	while (*format)
+	while (format[i])
 	{
-		if (*format == '%')
+		if (format[i] == '%' && format[i + 1])
 		{
-			format++;
-			check_flags(args, *format, &len);
+		
+			count += check_flags(args, format[i + 1]);
+			i++;
 		}
 		else
-			ft_putchar(*format, &len);
-		format++;
+			count += ft_putchar(format[i]);
+		i++;
 	}
 	va_end(args);
-	return (len);
+	return (count);
 }

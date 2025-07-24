@@ -11,21 +11,20 @@
 /* ************************************************************************** */
 #include "ft_printf.h"
 
-void	ft_putstr(char *s, int *len)
+int	ft_putstr(char *s)
 {
 	int	i;
 
 	if (!s)
 	{
 		write(1, "(null)", 6);
-		*len += 6;
-		return ;
+		return (6);
 	}
 	i = 0;
 	while (s[i])
 	{
 		write(1, &s[i], 1);
-		(*len)++;
 		i++;
 	}
+	return (i);
 }
